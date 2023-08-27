@@ -1,0 +1,14 @@
+https://github.com/nikhilroxtomar/Flower-Image-Classification-using-Vision-Transformer
+
+Create conda environment
+conda env create -f audioViT_env.yml
+
+To run noise reducer:
+python noise_cancel.py 
+python noise_cancel.py --noise_reducer=centroid_s
+python noise_cancel.py -nr=mfcc_up
+
+
+To run the model:
+python train_audio.py
+python train_audio.py --model_type=conv2d
