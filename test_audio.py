@@ -63,16 +63,21 @@ def downsample_mono(path, sr):
 
 
 def make_prediction(args):
-    #model = load_model("../input/danger-detection-2-0/models/mobilenetv20.h5")
-    model = load_model(args.model_fn,
+    model_name = args.model_type
+    noise_reducer = args.noise_reduce
+    src_dir = args.src_dir
+
+    model_fn = './testoutput/'+model_name+'/best_'+model_name+noise_reducer+'.h5'
+
+    model = load_model(model_fn,
         custom_objects={'STFT':STFT,
                         'Magnitude':Magnitude,
                         'ApplyFilterbank':ApplyFilterbank,
                         'MagnitudeToDecibel':MagnitudeToDecibel,
                         'ClassToken': ClassToken})
-    wav_paths = glob('{}/**'.format(args.src_dir), recursive=True)
+    wav_paths = glob('{}/**'.format(src_dir), recursive=True)
     wav_paths = sorted([x.replace(os.sep, '/') for x in wav_paths if '.wav' in x])
-    classes = sorted(os.listdir(args.src_dir))
+    classes = sorted(os.listdir(src_dir))
     results = []
     co=0
     ch=0
@@ -162,7 +167,7 @@ def make_prediction(args):
     file1.write('Mean Squared Error(MSE): {} \n'.format(metrics.mean_squared_error(true_class, pred_class)))
     file1.write('t-test : {} \n \n'.format(stats.ttest_ind(a=true_class, b=pred_class, equal_var=True)))
     file1.close()
-    file1.close()
+
     print('total_accuracy: {}'.format(co/len(wav_paths)))
     print('child_accuracy: {}'.format(ch/tch))
     print('women_accuracy: {}'.format(wo/two))
@@ -173,18 +178,14 @@ def make_prediction(args):
 if __name__ == '__main__':
 
     parser = argparse.ArgumentParser(description='Audio Classification Training')
-    parser.add_argument('--model_fn', type=str, default='./testoutput/'+model_name+'/best_'+model_name+noise_reducer+'.h5',
-                        help='model file to make predictions, eg. resnet50, resnet101, dencenet, mobilenetv2, inceptionv3, xception')
-    parser.add_argument('--pred_fn', type=str, default='y_pred',
-                        help='fn to write predictions in logs dir')
+    parser.add_argument('--model_type', type=str, default='lstm',
+                        help='model to run. i.e.  conv1d, mobilenetv2, inceptionv3, xception, \
+                            dencenet, resnet50, resnet101, lstm, audiovit, conv2d, vgg19')
+    parser.add_argument('--noise_reduce', type=str, default='median',
+                        help='Noise reduction to choose: butter, noise_reduce, deNoise, power, centroid_s, \
+                            centroid_mb, mfcc_up, mfcc_down, median')
     parser.add_argument('--src_dir', type=str, default='./CleanData/test',
                         help='directory containing wavfiles to predict')
-    parser.add_argument('--dt', type=float, default=1.0,
-                        help='time in seconds to sample audio')
-    parser.add_argument('--sr', type=int, default=40000,
-                        help='sample rate of clean audio')
-    parser.add_argument('--threshold', type=str, default=20,
-                        help='threshold magnitude for np.int16 dtype')
     args, _ = parser.parse_known_args()
 
     make_prediction(args)
