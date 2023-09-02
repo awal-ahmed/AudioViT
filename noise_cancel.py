@@ -354,7 +354,7 @@ if __name__ == '__main__':
                         help='directory of audio files in total duration')
     parser.add_argument('--dst_root', type=str, default='CleanData',
                         help='directory to put audio files split by delta_time')
-    parser.add_argument('--noise_reducer','-nr', type=str, default='butter',
+    parser.add_argument('--noise_reducer','-nr', type=str, default='median',
                         help='Noise reduction to choose: butter, noise_reduce, deNoise, power, centroid_s, \
                             centroid_mb, mfcc_up, mfcc_down, median')
     parser.add_argument('--sr', type=int, default=40000,
