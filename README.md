@@ -74,7 +74,7 @@ Options to customize noise reduction
 * --sr: Mention the sampling rate you want to resize the audio.<br />
 &emsp;&emsp;&emsp;Example: `--sr=40000`
 
-### To train audio signal
+### Train audio signal
 To train with the default parameters
 ```
 python train_audio.py
@@ -97,6 +97,29 @@ Options to customize audio training
 * --sr: Mention the sampling rate you have resampled your in [noise reduction](https://github.com/awal-ahmed/AudioViT/edit/main/README.md#Reduce-noise).<br />
 &emsp;&emsp;&emsp;Example: `--sr=40000`
 * --noise_reduce: Mention the noise reducer name you have resampled your in [noise reduction](https://github.com/awal-ahmed/AudioViT/edit/main/README.md#Reduce-noise).<br />
+&emsp;&emsp;&emsp;&emsp;&emsp;Options: butter, noise_reduce, deNoise, power, centroid_s, centroid_mb, mfcc_up, mfcc_down, median<br />
+&emsp;&emsp;&emsp;Example: `--noise_reduce=median`
+* --old: Mention the folder name where you want to save your models.<br />
+&emsp;&emsp;&emsp;Example: `--old=./testoutput`
+
+### Test audio signal
+To test with the default parameters
+```
+python test_audio.py
+```
+To change the noise reduction models:
+```
+python test_audio.py --model_type=audiovit
+```
+
+Options to customize audio testing
+* --model_type: Mention the model name you wanna test your data with.<br />
+&emsp;&emsp;&emsp;&emsp;&emsp;Options: conv1d, mobilenetv2, inceptionv3, xception, dencenet, resnet50, resnet101, lstm, audiovit, conv2d, vgg19<br />
+&emsp;&emsp;&emsp;Example: `--model_type=audiovit`
+* --test_dir: Mention the root of the testing folder.<br />
+&emsp;&emsp;&emsp;Example: `--test_dir=./CleanData/test`
+* --noise_reduce: Mention the noise reducer name you have resampled your in [noise reduction](https://github.com/awal-ahmed/AudioViT/edit/main/README.md#Reduce-noise).<br />
+&emsp;&emsp;&emsp;&emsp;&emsp;Options: butter, noise_reduce, deNoise, power, centroid_s, centroid_mb, mfcc_up, mfcc_down, median<br />
 &emsp;&emsp;&emsp;Example: `--noise_reduce=median`
 * --old: Mention the folder name where you want to save your models.<br />
 &emsp;&emsp;&emsp;Example: `--old=./testoutput`
