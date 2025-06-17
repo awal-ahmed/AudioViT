@@ -123,3 +123,21 @@ Options to customize audio testing
 &emsp;&emsp;&emsp;Example: `--noise_reduce=median`
 * --old: Mention the folder name where you want to save your models.<br />
 &emsp;&emsp;&emsp;Example: `--old=./testoutput`
+
+
+
+[This paper](https://www.sciencedirect.com/science/article/abs/pii/S0957417423021486) might help understand this repository.
+
+If you find this repository and paper helpful, we would appreciate using the following citations:
+
+```
+@article{fime2024audio,
+  title={Audio signal based danger detection using signal processing and deep learning},
+  author={Fime, Awal Ahmed and Ashikuzzaman, Md and Aziz, Abdul},
+  journal={Expert Systems with Applications},
+  volume={237},
+  pages={121646},
+  year={2024},
+  publisher={Elsevier}
+}
+```
